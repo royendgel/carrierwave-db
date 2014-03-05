@@ -1,0 +1,3 @@
+Carrierwave database storage plugin
+===================================
+
