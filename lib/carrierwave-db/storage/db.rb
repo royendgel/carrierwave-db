@@ -3,8 +3,11 @@
 # lib/carrierwave/storage/abstract.rb
 module CarrierWave
   module Storage
-    class db < Abstract
+    class DB < Abstract
     	def store!(file)
+        file = Filee.open('test.jpg', 'w+')
+        f.write(file)
+        f.close()
     		# Bla bla bla bla bla do this store this store that
     	end # store!
     	def retrieve!(identifier)
@@ -14,5 +17,14 @@ module CarrierWave
         def 
       end
     end
+  end
+end
+
+CarrierWave::Storage.autoload :DB, 'carrierwave/storage/ftp'
+
+class CarrierWave::Uploader::Base
+
+  configure do |config|
+    config.storage_engines[:db] = "CarrierWave::Storage::DB"
   end
 end

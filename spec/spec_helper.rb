@@ -2,6 +2,8 @@ require 'bundler/setup'
 require 'rspec'
 require 'tempfile'
 require 'carrierwave'
+require 'active_record'
+require 'carrierwave/orm/activerecord'
 
 def file_path( *paths )
   File.expand_path(File.join(File.dirname(__FILE__), 'fixtures', *paths))

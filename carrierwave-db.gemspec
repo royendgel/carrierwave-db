@@ -12,11 +12,9 @@ Gem::Specification.new do |s|
   s.description = %q{Upload your files directly in databse}
   s.required_ruby_version = ">= 1.9.0"
 
-  s.add_dependency "carrierwave"
+  s.add_dependency "carrierwave", [">= 0.6.2"]
   s.add_development_dependency "rspec"
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "rails", ">= 3.2.12"
-  s.add_development_dependency "rake", ["~> 0.9"]
-
-  # s.executables
-  s.require_paths = ["lib"]
+  s.add_development_dependency "rake"
 end
