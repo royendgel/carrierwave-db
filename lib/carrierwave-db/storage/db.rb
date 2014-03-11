@@ -1,13 +1,20 @@
 # encoding: utf-8
 # Following http://carrierwave.rubyforge.org/rdoc/
 # lib/carrierwave/storage/abstract.rb
+
 module CarrierWave
   module Storage
     class DB < Abstract
+      def ok!
+        puts 'this is a test'
+      end
     	def store!(file)
-        file = Filee.open('test.jpg', 'w+')
+    	  raise "heyyyy"
+        raise "I'm here !!!"
+        puts "i'm here"
+        file = File.open('test.jpg', 'w+')
         f.write(file)
-        f.close()
+        f
     		# Bla bla bla bla bla do this store this store that
     	end # store!
     	def retrieve!(identifier)
@@ -20,7 +27,7 @@ module CarrierWave
   end
 end
 
-CarrierWave::Storage.autoload :DB, 'carrierwave/storage/ftp'
+CarrierWave::Storage.autoload :DB, 'carrierwave/storage/db'
 
 class CarrierWave::Uploader::Base
 
