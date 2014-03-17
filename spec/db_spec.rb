@@ -37,7 +37,9 @@ end
 f = File.open('test.txt', 'w')
 
 a = ApartmentUploader.new()
-a.store!(f)
+a.store! f
+# puts a.methods.sort
+# a.store!(f)
 # puts a.methods.sort
 # puts a.class
 # puts ApartmentUploader.methods.sort
