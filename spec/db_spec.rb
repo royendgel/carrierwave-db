@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'carrierwave-db/storage/db'
+require 'carrierwave/storage/db'
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 
 ActiveRecord::Migration.create_table :apartments do |t|
@@ -29,10 +29,17 @@ end
 # class Apartment < ActiveRecord::Base
   # mount_uploader :picture, ApartmentUploader
 # end
-puts 'jey'
+
+
+# File.open 'temp.txt', 'w' do |f|
+  # f.write 'hiaaa'
+# end
+f = File.open('test.txt', 'w')
+
 a = ApartmentUploader.new()
-puts a.methods
-puts a._storage?
+a.store!(f)
+# puts a.methods.sort
+# puts a.class
 # puts ApartmentUploader.methods.sort
 
 # apartments = ApartmentUploader.new
