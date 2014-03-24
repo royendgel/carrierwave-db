@@ -1,6 +1,6 @@
 module CarrierWave
   module Storage
-    module ActiveRecord
+    module DB
       class ActiveRecordFile < ::ActiveRecord::Base
         self.table_name = CarrierWave::Uploader::Base.active_record_tablename
         alias_method    :delete, :destroy

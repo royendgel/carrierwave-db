@@ -1,9 +1,8 @@
+puts "I'm here File"
 module CarrierWave
   module Storage
-    module ActiveRecord 
-
+    module DB 
       class File
-
         def self.create!(new_file, identifier)
           attributes = { :identifier        => identifier,
                          :original_filename => new_file.original_filename,

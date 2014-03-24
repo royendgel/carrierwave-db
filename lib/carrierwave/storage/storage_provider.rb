@@ -1,25 +1,38 @@
-# abort 'ok'
+class File
+  def ZZZZz
+    puts 'wey'
+  end
+end
 module CarrierWave
   module Storage
-    module ActiveRecord 
-
+    module DB 
+      class File 
+        def ZZZ 
+          puts 'ok'
+        end
+      end
       class StorageProvider
-
         attr_reader :uploader
-
         def initialize(uploader)
           @uploader = uploader
         end
-
+        
         def store! sanitized_file
-          @file = File.create! sanitized_file, uploader.identifier
-          set_file_properties
+          puts sanitized_file.methods.sort 
+
+          # @file = File.create! sanitized_file, uploader.identifier
+          # set_file_properties
         end
 
         def retrieve! identifier
           @file = File.fetch! identifier
           set_file_properties
         end
+        
+        def save_in_table
+          puts 'ok'
+        end
+
 
         # All uploaded files are stored together in a single table.  This means
         # we cannot use filenames or model IDs as the identifier, e.g. there
