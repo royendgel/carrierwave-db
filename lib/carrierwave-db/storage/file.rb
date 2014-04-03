@@ -1,4 +1,3 @@
-puts "I'm here File"
 module CarrierWave
   module Storage
     module DB 
@@ -9,7 +8,6 @@ module CarrierWave
                          :content_type      => new_file.content_type,
                          :size              => new_file.size,
                          :data              => new_file.read }
-
           self.new ActiveRecordFile.create! attributes
         end
 
@@ -20,8 +18,6 @@ module CarrierWave
         def self.delete_all
           ActiveRecordFile.delete_all
         end
-
-
         attr_reader   :file
         attr_accessor :url
 

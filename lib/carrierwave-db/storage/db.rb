@@ -3,10 +3,10 @@ require 'carrierwave'
 module CarrierWave
   module Storage
     module DB
-      autoload :VERSION,          'carrierwave/version'
-      autoload :StorageProvider,  'carrierwave/storage/storage_provider'
-      autoload :File,             'carrierwave/storage/file'
-      autoload :ActiveRecordFile, 'carrierwave/storage/active_record_file'
+      autoload :VERSION,          'carrierwave-db/version'
+      autoload :StorageProvider,  'carrierwave-db/storage/storage_provider'
+      autoload :File,             'carrierwave-db/storage/file'
+      autoload :ActiveRecordFile, 'carrierwave-db/storage/active_record_file'
     end
   end
 

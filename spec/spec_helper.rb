@@ -2,8 +2,23 @@ require 'bundler/setup'
 require 'rspec'
 require 'tempfile'
 require 'carrierwave'
-require 'active_record'
+require 'active_record' 
 require 'carrierwave/orm/activerecord'
+require 'colored'
+require 'factory_girl_rails'
+require_relative '../lib/db' #FIXME need to fix this
+include ActionDispatch::TestProcess
+FactoryGirl.define do
+  factory :apartment do
+    name "Curacao_Apartment"
+    description  "Nice Apartment near the ocean good for drinking Blue-Curacao"
+    picture File.open('spec/fixtures/images/blue-curacao.jpg', 'r')
+ end
+end
+
+RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+end
 
 def file_path( *paths )
   File.expand_path(File.join(File.dirname(__FILE__), 'fixtures', *paths))

@@ -1,41 +1,36 @@
 require 'spec_helper'
-require 'carrierwave/storage/db'
 
-ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
-
-ActiveRecord::Migration.create_table :apartments do |t|
-  t.string :name
-  t.binary :picture
-  t.timestamp
+ActiveRecord::Base.establish_connection(
+  :adapter => "sqlite3",
+  :database  => "db/database.db"
+)
+# added this to test quickly
+if ActiveRecord::Base.connection.table_exists? 'apartments'
+  puts '=====>>>>>Table already exists using this table otherwise delete it<======='.red
+  
+else
+  puts '=====>>>>>Creating new table !!!<======='.red
+  ActiveRecord::Migration.create_table :apartments do |t|
+    t.string        :name
+    t.binary        :picture
+    t.string        :description
+    t.timestamp
+  end
 end
 
 class ApartmentUploader < CarrierWave::Uploader::Base
   storage :db
 end
 
-# class ApartmentUploader < CarrierWave::Uploader::Base
-  # storage :db
-# end
 
-# describe CarrierWave::Storage::DB do
-#   before do
-#     CarrierWave.configure do |config|
-#     end
-# end
-# end
+class Apartment < ActiveRecord::Base
+  mount_uploader :picture, ApartmentUploader
+end
 
-# class Apartment < ActiveRecord::Base
-  # mount_uploader :picture, ApartmentUploader
-# end
+ap = Apartment.new
+ap = FactoryGirl.create(:apartment)
 
-
-# File.open 'temp.txt', 'w' do |f|
-  # f.write 'hiaaa'
-# end
-f = open('test.txt', 'w')
-
-a = ApartmentUploader.new()
-a.store! f
+# puts FactoryGirl.methods.sort
 # puts CarrierWave::Storage::DB::File
 # puts a.methods.sort
 # a.store!(f)
