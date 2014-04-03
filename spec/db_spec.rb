@@ -5,16 +5,20 @@ ActiveRecord::Base.establish_connection(
   :database  => "db/database.db"
 )
 # added this to test quickly
-if ActiveRecord::Base.connection.table_exists? 'apartments'
-  puts '=====>>>>>Table already exists using this table otherwise delete it<======='.red
-  
-else
-  puts '=====>>>>>Creating new table !!!<======='.red
+unless ActiveRecord::Base.connection.table_exists? 'apartments'
+  puts '=====>>>>>Creating new table !!!<======='.green
   ActiveRecord::Migration.create_table :apartments do |t|
     t.string        :name
     t.binary        :picture
     t.string        :description
     t.timestamp
+
+    t.string  :identifier
+    t.string  :original_filename
+    t.string  :content_type
+    t.integer :size
+    t.binary  :data
+                  
   end
 end
 

@@ -21,7 +21,7 @@ module CarrierWave
       configure do |config|
         config.storage_engines[:db] = 'CarrierWave::Storage::DB::StorageProvider'
         config.download_path_prefix            = '/files'
-        config.active_record_tablename         = 'carrier_wave_files'
+        config.active_record_tablename         = 'apartments'
       end
 
       def self.reset_config
