@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 ActiveRecord::Base.establish_connection(
-  :adapter => "sqlite3",
-  :database  => "db/database.db"
+    :adapter => "sqlite3",
+    :database  => "db/database.db"
 )
 # added this to test quickly
 unless ActiveRecord::Base.connection.table_exists? 'apartments'
   puts '=====>>>>>Creating new table !!!<======='.green
   ActiveRecord::Migration.create_table :apartments do |t|
     t.string        :name
-    t.binary        :picture
     t.string        :description
+    t.binary        :picture
+
     t.timestamp
 
     t.string  :identifier
@@ -18,30 +19,56 @@ unless ActiveRecord::Base.connection.table_exists? 'apartments'
     t.string  :content_type
     t.integer :size
     t.binary  :data
-                  
+
+  end
+
+  ActiveRecord::Migration.create_table :persoons do |t|
+  t.string        :name
+  t.binary        :picture
+
+  t.timestamp
+
+  t.string  :identifier
+  t.string  :original_filename
+  t.string  :content_type
+  t.integer :size
+  t.binary  :data
+
   end
 end
 
-class ApartmentUploader < CarrierWave::Uploader::Base
-  configure do |config|
-        config.storage_engines[:db] = 'CarrierWave::Storage::DB::StorageProvider'
-        config.download_path_prefix            = '/files'
-        config.active_record_tablename         = 'apartmnhhhhents'
-      end
+class PersoonUploader < CarrierWave::Uploader::Base
 
   storage :db
-  def tablexx
-    "hallo"
-  end
-  
+  active_record_tablename :persoons
+  # I want to be able to put the table HEREEEEE AND ONLY HERE !!!!!!
+  # puts self.table_name
+
+  # CarrierWave::Uploader::Base.active_record_tablename = "persoons"
 end
 
+
+class ApartmentUploader < CarrierWave::Uploader::Base
+
+  storage :db
+  active_record_tablename :apartments
+
+  # I want to be able to put the table HEREEEEE AND ONLY HERE !!!!!!
+  # puts self.table_name
+
+  # CarrierWave::Uploader::Base.active_record_tablename = "apartments"
+end
 
 class Apartment < ActiveRecord::Base
   mount_uploader :picture, ApartmentUploader do
-    def table_name 
-      "apartments"
-    end
+  end
+  def tellme
+    self.class.inspect
+  end
+end
+
+class Persoon < ActiveRecord::Base
+  mount_uploader :picture, PersoonUploader do
   end
   def tellme
     self.class.inspect
@@ -54,7 +81,11 @@ ap = Apartment.new
 ap = FactoryGirl.create(:apartment)
 
 
-puts ap.tellme
+pr = Persoon.new
+pr = FactoryGirl.create(:persoon)
+
+
+# puts ap.tellme
 # puts FactoryGirl.methods.sort
 # puts CarrierWave::Storage::DB::File
 # puts a.methods.sort
@@ -70,20 +101,20 @@ puts ap.tellme
 # @upload CarrierWave::Storage::DB.new
 
 # describe Apartment do
-  # it "insert a Apartment without attachment and retrieve it back" do
-    # subject.name = 'Nechi kas'
-    # subject.picture = @uploader
-    # subject.save!
-    # Apartment.find(1).name.should eq('Nechi kas')
+# it "insert a Apartment without attachment and retrieve it back" do
+# subject.name = 'Nechi kas'
+# subject.picture = @uploader
+# subject.save!
+# Apartment.find(1).name.should eq('Nechi kas')
 # end
 
-  # it "insert a Apartment with attachment and retrieve it back" do
-    # subject.name = 'Nechi kas'
-    # subject.picture = @uploader.store! 'spec/fixtures/blue-curacao.jpg'
-    # subject.save!
+# it "insert a Apartment with attachment and retrieve it back" do
+# subject.name = 'Nechi kas'
+# subject.picture = @uploader.store! 'spec/fixtures/blue-curacao.jpg'
+# subject.save!
 #     
-    # Apartment.find(1).name.should eq('Nechi kas')
+# Apartment.find(1).name.should eq('Nechi kas')
 # 
-  # end
+# end
 
 # end

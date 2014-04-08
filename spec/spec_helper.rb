@@ -13,7 +13,12 @@ FactoryGirl.define do
     name "Curacao_Apartment"
     description  "Nice Apartment near the ocean good for drinking Blue-Curacao"
     picture File.open('spec/fixtures/images/blue-curacao.jpg', 'r')
- end
+  end
+
+  factory :persoon do
+    name "Leuke Persoon"
+    picture File.open('spec/fixtures/images/blue-curacao.jpg', 'r')
+  end
 end
 
 RSpec.configure do |config|
