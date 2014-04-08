@@ -3,6 +3,8 @@ module CarrierWave
     module DB
       class ActiveRecordFile < ::ActiveRecord::Base
         self.table_name = CarrierWave::Uploader::Base.active_record_tablename
+        # puts parent.parent.parent.parent.inspect
+        puts table_name.inspect
         alias_method    :delete, :destroy
         alias_attribute :read, :data
 

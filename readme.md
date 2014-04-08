@@ -28,3 +28,9 @@ end
 
 ```
 
+###8 April :
+The table_name need to be configurable per instance
+eg : 
+If I have Apartment uploader need to be able to upload to an apartmentTable and if I have a car uploader need to be able to 
+carTable 
+

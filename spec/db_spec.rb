@@ -23,17 +23,38 @@ unless ActiveRecord::Base.connection.table_exists? 'apartments'
 end
 
 class ApartmentUploader < CarrierWave::Uploader::Base
+  configure do |config|
+        config.storage_engines[:db] = 'CarrierWave::Storage::DB::StorageProvider'
+        config.download_path_prefix            = '/files'
+        config.active_record_tablename         = 'apartmnhhhhents'
+      end
+
   storage :db
+  def tablexx
+    "hallo"
+  end
+  
 end
 
 
 class Apartment < ActiveRecord::Base
-  mount_uploader :picture, ApartmentUploader
+  mount_uploader :picture, ApartmentUploader do
+    def table_name 
+      "apartments"
+    end
+  end
+  def tellme
+    self.class.inspect
+  end
 end
+
+
 
 ap = Apartment.new
 ap = FactoryGirl.create(:apartment)
 
+
+puts ap.tellme
 # puts FactoryGirl.methods.sort
 # puts CarrierWave::Storage::DB::File
 # puts a.methods.sort
