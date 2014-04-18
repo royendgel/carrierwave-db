@@ -44,7 +44,6 @@ class PersoonUploader < CarrierWave::Uploader::Base
   store_dir :persoons
 end
 
-
 class ApartmentUploader < CarrierWave::Uploader::Base
   storage :db
   store_dir :apartments
@@ -58,18 +57,36 @@ class Persoon < ActiveRecord::Base
   mount_uploader :picture, PersoonUploader
 end
 
+describe Apartment do
+  it "it stores a apartment in the database with a picture" do
 
+    ap = Apartment.new
+    ap = FactoryGirl.create(:apartment)
+    expect(Apartment.first.picture.to_s).to start_with('/files/')
+  end
+end
 
-ap = Apartment.new
-ap = FactoryGirl.create(:apartment)
+describe Persoon do
+  it "it stores a Persoon in the database with a picture" do
+    pr = Persoon.new
+    pr = FactoryGirl.create(:persoon)
+    expect(Persoon.first.picture.to_s).to start_with('/files/')
+  end
+end
 
-pr = Persoon.new
-pr = FactoryGirl.create(:persoon)
+describe "Get the picture of Apartment and store it to the disk" do
+  it '' do
+    raise Apartment.first.picture
+  end
+end
+describe "Get the picture of Persoon and store it to the disk" do
+  it '' do
 
-
+  end
+end
 
 # puts ap.tellme
-# puts FactoryGirl.methods.sort
+# puts Factofind_by_identifier!ryGirl.methods.sort
 # puts CarrierWave::Storage::DB::File
 # puts a.methods.sort
 # a.store!(f)
