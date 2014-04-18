@@ -24,6 +24,7 @@ unless ActiveRecord::Base.connection.table_exists? 'apartments'
 
   ActiveRecord::Migration.create_table :persoons do |t|
   t.string        :name
+    t.string        :description
   t.binary        :picture
 
   t.timestamp
@@ -40,39 +41,21 @@ end
 class PersoonUploader < CarrierWave::Uploader::Base
 
   storage :db
-  active_record_tablename :persoons
-  # I want to be able to put the table HEREEEEE AND ONLY HERE !!!!!!
-  # puts self.table_name
-
-  # CarrierWave::Uploader::Base.active_record_tablename = "persoons"
+  store_dir :persoons
 end
 
 
 class ApartmentUploader < CarrierWave::Uploader::Base
-
   storage :db
-  active_record_tablename :apartments
-
-  # I want to be able to put the table HEREEEEE AND ONLY HERE !!!!!!
-  # puts self.table_name
-
-  # CarrierWave::Uploader::Base.active_record_tablename = "apartments"
+  store_dir :apartments
 end
 
 class Apartment < ActiveRecord::Base
-  mount_uploader :picture, ApartmentUploader do
-  end
-  def tellme
-    self.class.inspect
-  end
+  mount_uploader :picture, ApartmentUploader
 end
 
 class Persoon < ActiveRecord::Base
-  mount_uploader :picture, PersoonUploader do
-  end
-  def tellme
-    self.class.inspect
-  end
+  mount_uploader :picture, PersoonUploader
 end
 
 
@@ -80,9 +63,9 @@ end
 ap = Apartment.new
 ap = FactoryGirl.create(:apartment)
 
-
 pr = Persoon.new
 pr = FactoryGirl.create(:persoon)
+
 
 
 # puts ap.tellme

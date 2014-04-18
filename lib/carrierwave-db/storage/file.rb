@@ -2,13 +2,13 @@ module CarrierWave
   module Storage
     module DB 
       class File
-        def self.create!(new_file, identifier)
+        def self.create!(new_file, identifier, store_dir)
           attributes = { :identifier        => identifier,
                          :original_filename => new_file.original_filename,
                          :content_type      => new_file.content_type,
                          :size              => new_file.size,
                          :data              => new_file.read }
-          self.new ActiveRecordFile.create! attributes
+          self.new ActiveRecordFile.create! store_dir, attributes
         end
 
         def self.fetch! identifier
