@@ -7,14 +7,11 @@ module CarrierWave
         attr_reader :uploader
 
         def initialize(uploader)
-          puts 'UPLOADSER MODEL' + uploader.model.inspect
-          puts 'UPLOADSER MODEL TABKE NAME' + uploader.model.table_name.inspect
-          
           @uploader = uploader
         end
 
         def store! sanitized_file
-          @file = File.create! sanitized_file, uploader.identifier, uploader.store_dir
+          @file = File.create! sanitized_file, uploader.identifier, uploader.model.class.table_name
           set_file_properties
         end
 
