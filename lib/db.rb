@@ -15,22 +15,10 @@ module CarrierWave
   module Uploader
     class Base
 
-      add_config :download_path_prefix
-      add_config :active_record_tablename
-
       configure do |config|
         config.storage_engines[:db] = 'CarrierWave::Storage::DB::StorageProvider'
-        config.download_path_prefix            = '/files'
-        config.active_record_tablename         = 'persoons'
       end
 
-      def self.reset_config
-        super
-        configure do |config|
-          config.download_path_prefix    = '/files'
-          config.active_record_tablename = 'carrier_wave_files'
-        end
-      end
     end # Base
   end # Uploader
 

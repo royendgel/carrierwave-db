@@ -54,7 +54,7 @@ module CarrierWave
               url = route_helpers.send(path_method_name, model)
               url << "/#{uploader.mounted_as.to_s}"
             else
-              [ CarrierWave::Uploader::Base.download_path_prefix, @file.identifier ].join '/'
+              [ @file.identifier ].join '/'
             end
           end
         end

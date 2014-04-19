@@ -27,7 +27,23 @@ end
 
 class Apartment < ActiveRecord::Base
   mount_uploader :picture, ApartmentUploader
+  skip_callback :save, :after, :store_picture!
+
+  private
+
+  def write_picture_identifier
+    # we skip the after_save 'store_picture!' and in the before_save 'write_picture_identifier' we call super and then store_picture! 
+    # and then copy our file attributes into the yet unsaved record. After that, it's saved... 
+    super
+    store_picture!
+    %w(identifier original_filename content_type size data). each do |attr|
+      self[attr] = self.picture.file.file[attr]
+    end
+  end
+
 end
 
 ap = FactoryGirl.create(:apartment)
-
+puts ap.inspect
+bp = Apartment.first
+puts bp.inspect

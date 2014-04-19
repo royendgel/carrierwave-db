@@ -17,6 +17,11 @@ module CarrierWave
           super attributes
         end
 
+        def self.new (table_name, attributes)
+          self.table_name = table_name
+          super attributes
+        end
+
      end # ActiveRecordFile
     end # ActiveRecord
   end # Storage
