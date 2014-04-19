@@ -10,7 +10,7 @@ ActiveRecord::Migration.drop_table :apartments if ActiveRecord::Base.connection.
 ActiveRecord::Migration.create_table :apartments do |t|
   t.string        :name
   t.string        :description
-  t.binary        :picture
+  t.string        :picture
 
   t.timestamps
 

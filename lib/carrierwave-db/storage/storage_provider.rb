@@ -20,10 +20,19 @@ module CarrierWave
           set_file_properties
         end
 
-        # identifier
+        # All uploaded files are stored together in a single table.  This means
+        # we cannot use filenames or model IDs as the identifier, e.g. there
+        # could be many files with the same filename uploaded; or, one model
+        # could have multiple uploaded files; or, two models could have the
+        # same ID such as @house.id = @book.id = 42.
+        #
+        # Override CarrierWave::Storage::Abstract#identifier() (by default
+        # returns @uploader.filename) to use a SHA1 of the time and a random
+        # number (to avoid time collisions) as the identifier stored in the
+        # mounted column.  The identifier should be nil if there is no filename.
         def identifier
           if uploader.filename
-            @identifier ||= uploader.filename
+            @identifier ||= Digest::SHA1.hexdigest( "#{Time.now.to_i + rand(1000)}" )
           end
         end
 
