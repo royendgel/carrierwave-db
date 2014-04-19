@@ -23,7 +23,6 @@ end
 
 class ApartmentUploader < CarrierWave::Uploader::Base
   storage :db
-  store_dir :apartments
 end
 
 class Apartment < ActiveRecord::Base
